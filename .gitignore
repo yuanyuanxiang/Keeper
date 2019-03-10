@@ -1,11 +1,23 @@
 # Prerequisites
 *.d
 
+#folders
+Debug
+Release
+x64
+ipch
+
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+*.db
+*.suo
+*.pdb
+*.aps
+*.sdf
+*.vsd
 
 # Precompiled Headers
 *.gch

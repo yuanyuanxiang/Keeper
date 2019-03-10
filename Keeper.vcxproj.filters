@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="线程池">
+      <UniqueIdentifier>{c9cfd463-380e-42e4-991d-ca34e2f25edf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="下载器">
+      <UniqueIdentifier>{29abf79d-4c88-474d-999a-515a504dd4ca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="changelog.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Keeper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="KeeperDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="confReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BcecrSocket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ChooseExecutable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="KeeperSettings.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Afx_MessageBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AppInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CPUusage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\MyList.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\MyMutex.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\MyQueue.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\MyStack.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\MyTask.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\MyThread.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\MyThreadPool.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\SimpleSocket.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\Task.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool\ServerFinder.h">
+      <Filter>线程池</Filter>
+    </ClInclude>
+    <ClInclude Include="cmdList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Downloader.h">
+      <Filter>下载器</Filter>
+    </ClInclude>
+    <ClInclude Include="md5driver.hpp">
+      <Filter>下载器</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Keeper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="KeeperDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="confReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BcecrSocket.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ChooseExecutable.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="KeeperSettings.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Afx_MessageBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CPUusage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\MyList.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\MyMutex.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\MyQueue.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\MyStack.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\MyTask.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\MyThread.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\MyThreadPool.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\SimpleSocket.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\Task.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool\ServerFinder.cpp">
+      <Filter>线程池</Filter>
+    </ClCompile>
+    <ClCompile Include="Downloader.cpp">
+      <Filter>下载器</Filter>
+    </ClCompile>
+    <ClCompile Include="md5driver.cpp">
+      <Filter>下载器</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Keeper.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\Keeper.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ThreadPool\README.md">
+      <Filter>线程池</Filter>
+    </None>
+    <None Include="ThreadPool\ThreadPool.vcxproj.filters">
+      <Filter>线程池</Filter>
+    </None>
+    <None Include="res\ghost.exe">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\updater.exe">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Keep.conf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Keeper.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\Notice.wav">
+      <Filter>资源文件</Filter>
+    </Media>
+  </ItemGroup>
+</Project>

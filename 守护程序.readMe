@@ -1,0 +1,55 @@
+
+================================
+
+通过配置keep.conf来守护指定的程序。
+
+================================
+
+							2017-7-6
+
+							袁沅祥
+							
+================================
+
+【注意事项 2017-11-14】
+
+Windows上的程序崩溃时将弹出一个对话框，
+除非手动点击对话框按钮，否则程序维持
+假死状态，这样守护程序失效。
+
+需在主函数按如下格式添加回调函数，程序
+遇到未知BUG导致终止时调用此函数，不弹框。
+
+出错时，该函数还将生成一个dump文件。
+
+#include <DbgHelp.h>
+#pragma comment(lib, "Dbghelp.lib")
+
+/** 
+* @brief 程序遇到未知BUG导致终止时调用此函数，不弹框
+* 并且转储dump文件到dump目录.
+*/
+long WINAPI whenbuged(_EXCEPTION_POINTERS *excp)
+{
+	char curTime[64];
+	time_t TIME(time(0));
+	strftime(curTime, 64, "dump/%Y-%m-%d %H%M%S.dmp", localtime(&TIME));
+	HANDLE hFile = ::CreateFileA(curTime, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 
+		FILE_ATTRIBUTE_NORMAL, NULL);
+	if(INVALID_HANDLE_VALUE != hFile)
+	{
+		MINIDUMP_EXCEPTION_INFORMATION einfo = {::GetCurrentThreadId(), excp, FALSE};
+		::MiniDumpWriteDump(::GetCurrentProcess(), ::GetCurrentProcessId(),
+			hFile, MiniDumpWithFullMemory, &einfo, NULL, NULL);
+		::CloseHandle(hFile);
+	}
+
+	return EXCEPTION_EXECUTE_HANDLER;
+}
+
+int main()
+{
+	SetUnhandledExceptionFilter(&whenbuged);
+	......you code here......
+	return 0;
+}

@@ -1,0 +1,7 @@
+关于"ffmpeg-4.1":
+
+下载地址：https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-4.1-win64-static.zip
+
+下载日期：2018.12.30
+
+并经过 “upx 3.95” 加壳处理，以减小程序大小。

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <RemoteDebuggerCommand>D:\platform_direct\au\Keeper.exe</RemoteDebuggerCommand>
+    <RemoteDebuggerWorkingDirectory>D:\platform_direct\au</RemoteDebuggerWorkingDirectory>
+    <RemoteDebuggerServerName>192.168.103.92</RemoteDebuggerServerName>
+    <DeploymentDirectory>D:\platform_direct\au</DeploymentDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <RemoteDebuggerCommand>D:\SAD_HK\Keeper.exe</RemoteDebuggerCommand>
+    <DeploymentDirectory>D:\SAD_HK</DeploymentDirectory>
+    <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
+    <RemoteDebuggerWorkingDirectory>D:\SAD_HK</RemoteDebuggerWorkingDirectory>
+    <RemoteDebuggerDeployDebugCppRuntime>false</RemoteDebuggerDeployDebugCppRuntime>
+    <AdditionalFiles>$(TargetDir)\Keeper.pdb</AdditionalFiles>
+    <RemoteDebuggerServerName>192.168.104.70</RemoteDebuggerServerName>
+    <LocalDebuggerCommandArguments>
+    </LocalDebuggerCommandArguments>
+  </PropertyGroup>
+</Project>

@@ -1039,24 +1039,28 @@ void CKeeperDlg::SetDlgIcon(const CString &icon)
 			CString text(m_moduleName);
 			text.MakeUpper();
 			int n = strlen(m_moduleName);
-			pBmp = new Gdiplus::Bitmap(64, 64, PixelFormat32bppARGB);
-			Gdiplus::Graphics graphics(pBmp);
-			graphics.SetTextRenderingHint(Gdiplus::TextRenderingHintAntiAliasGridFit);
-			graphics.FillRectangle(&Gdiplus::SolidBrush(Gdiplus::Color(0, 0, 0, 0)), Gdiplus::Rect(0, 0, 64, 64));
-			Gdiplus::FontFamily fontFamily(L"黑体");
-			Gdiplus::Font font(&fontFamily, Gdiplus::REAL(n >= 3 ? 24 : 32), Gdiplus::FontStyleRegular, Gdiplus::UnitPoint);
-			Gdiplus::StringFormat strformat;
-			strformat.SetAlignment(Gdiplus::StringAlignmentCenter);
-			strformat.SetLineAlignment(Gdiplus::StringAlignmentCenter);
-			graphics.DrawString(text, -1, &font, Gdiplus::RectF(0, 16, 64, 32), &strformat, 
-				&Gdiplus::SolidBrush(Gdiplus::Color(255, 0, 0, 255)));
+			if (n<=4)
+			{
+				pBmp = new Gdiplus::Bitmap(64, 64, PixelFormat32bppARGB);
+				Gdiplus::Graphics graphics(pBmp);
+				graphics.SetTextRenderingHint(Gdiplus::TextRenderingHintAntiAliasGridFit);
+				graphics.FillRectangle(&Gdiplus::SolidBrush(Gdiplus::Color(0, 0, 0, 0)), Gdiplus::Rect(0, 0, 64, 64));
+				Gdiplus::FontFamily fontFamily(L"黑体");
+				Gdiplus::Font font(&fontFamily, Gdiplus::REAL(n >= 3 ? 24 : 32), Gdiplus::FontStyleRegular, Gdiplus::UnitPoint);
+				Gdiplus::StringFormat strformat;
+				strformat.SetAlignment(Gdiplus::StringAlignmentCenter);
+				strformat.SetLineAlignment(Gdiplus::StringAlignmentCenter);
+				graphics.DrawString(text, -1, &font, Gdiplus::RectF(0, 16, 64, 32), &strformat, 
+					&Gdiplus::SolidBrush(Gdiplus::Color(255, 0, 0, 255)));
+			}else 
+				pBmp = NULL;
 		}else{
 			pBmp = new Gdiplus::Bitmap(CString(file.c_str()));
 		}
 	}else{
 		pBmp = new Gdiplus::Bitmap(m_strIcon);
 	}
-	Gdiplus::Status STATUS = pBmp->GetHICON(&m_hIcon);
+	Gdiplus::Status STATUS = pBmp ? pBmp->GetHICON(&m_hIcon) : Gdiplus::Status::FileNotFound;
 	m_hIcon = STATUS == Gdiplus::Status::Ok ? m_hIcon 
 		: AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	SetIcon(m_hIcon, TRUE);			// 设置大图标

@@ -10,7 +10,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <RemoteDebuggerCommand>D:\SAD_HK\Keeper.exe</RemoteDebuggerCommand>
     <DeploymentDirectory>D:\SAD_HK</DeploymentDirectory>
-    <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <RemoteDebuggerWorkingDirectory>D:\SAD_HK</RemoteDebuggerWorkingDirectory>
     <RemoteDebuggerDeployDebugCppRuntime>false</RemoteDebuggerDeployDebugCppRuntime>
     <AdditionalFiles>$(TargetDir)\Keeper.pdb</AdditionalFiles>

@@ -1,4 +1,14 @@
-﻿#include <Windows.h> 
+﻿#include <Windows.h>
+
+#ifdef _M_IX86
+// XP:无法定位程序输入点 K32GetProcessMemoryInfo
+// @see https://blog.csdn.net/caimouse/article/details/48676285
+#ifndef PSAPI_VERSION
+#define PSAPI_VERSION 1
+#endif
+#pragma  comment(lib,"Psapi.lib")
+#endif
+
 #include <psapi.h>
 
 

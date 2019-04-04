@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v110_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Static</UseOfMfc>
@@ -82,8 +82,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>../;$(LibraryPath)</LibraryPath>
-    <IncludePath>./;$(IncludePath)</IncludePath>
+    <LibraryPath>../;$(WindowsSDK_LibraryPath_x86);$(LibraryPath)</LibraryPath>
+    <IncludePath>./;$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -168,6 +168,7 @@
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <UACUIAccess>false</UACUIAccess>
+      <MinimumRequiredVersion>5.01</MinimumRequiredVersion>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>

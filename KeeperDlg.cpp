@@ -499,6 +499,31 @@ ULONG_PTR GetParentProcessId(int pid)
 }
 
 
+// 安全的取得真实系统信息
+void SafeGetNativeSystemInfo(__out LPSYSTEM_INFO lpSystemInfo)
+{
+	typedef void (WINAPI *LPFN_GetNativeSystemInfo)(LPSYSTEM_INFO lpSystemInfo);
+	LPFN_GetNativeSystemInfo fnGetNativeSystemInfo = (LPFN_GetNativeSystemInfo)
+		GetProcAddress(GetModuleHandle(_T("kernel32")), "GetNativeSystemInfo");
+	if (NULL != fnGetNativeSystemInfo)
+	{
+		fnGetNativeSystemInfo(lpSystemInfo);
+	}
+	else
+	{
+		GetSystemInfo(lpSystemInfo);
+	}
+}
+
+// 获取操作系统位数
+int GetSystemBits()
+{
+	SYSTEM_INFO si;
+	SafeGetNativeSystemInfo(&si);
+	return (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64 ||  
+		si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_IA64 ) ? 64 : 32;
+}
+
 // 仅op为真时才提示64位
 DWORD GetProcessId(const CString &processName, const CString &strFullPath, BOOL &op)
 {
@@ -520,7 +545,7 @@ DWORD GetProcessId(const CString &processName, const CString &strFullPath, BOOL 
 			HANDLE hModule = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, id);
 			if (op && ERROR_PARTIAL_COPY == GetLastError())
 			{
-				if(CheckWowProcess(hModule))
+				if(CheckWowProcess(hModule) && 64==GetSystemBits())
 				{
 					AfxMessageBox(L"请使用64位守护程序, 否则可能导致意想不到的结果!"
 						, MB_ICONINFORMATION | MB_OK);
@@ -2029,7 +2054,7 @@ DWORD WINAPI CKeeperDlg::keepProc(LPVOID pParam)
 						!SetProcessAffinityMask(ShExecInfo.hProcess, 1<<(pThis->m_nAffinityCpu - 1)) )
 						OutputDebugString(Module + _T("\r\n绑定CPU失败!"));
 					pThis->m_handle = ShExecInfo.hProcess;
-					if(CheckWowProcess(ShExecInfo.hProcess))
+					if(CheckWowProcess(ShExecInfo.hProcess) && 64==GetSystemBits())
 					{
 						pThis->Notice("请使用64位守护程序, 否则可能导致意想不到的结果!");
 					}

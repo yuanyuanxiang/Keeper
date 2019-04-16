@@ -811,6 +811,8 @@ BEGIN_MESSAGE_MAP(CKeeperDlg, CDialog)
 	ON_WM_WINDOWPOSCHANGING()
 	ON_COMMAND(ID_SETTINGS, &CKeeperDlg::OnSettings)
 	ON_WM_TIMER()
+	ON_WM_CREATE()
+	ON_WM_HOTKEY()
 END_MESSAGE_MAP()
 
 
@@ -1867,6 +1869,7 @@ void CKeeperDlg::OnDestroy()
 		delete m_pSocket;
 	}
 	WSACleanup();
+	UnregisterHotKey(m_hWnd, MY_HOTKEY);
 	OutputDebugStringA("======> Keeper退出成功。\n");
 }
 
@@ -2664,4 +2667,34 @@ void CKeeperDlg::OnTimer(UINT_PTR nIDEvent)
 		log_command(&TM, content);
 	}
 	CDialog::OnTimer(nIDEvent);
+}
+
+
+int CKeeperDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CDialog::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	const char keys[] = "0123456789";
+	for (const char *p = keys; *p; ++p)
+	{
+		if(RegisterHotKey(m_hWnd, MY_HOTKEY, MOD_CONTROL, *p))
+		{
+			TRACE("======> 设置快捷键\"Ctrl+%c\"成功\n", *p);
+			break;
+		}
+	}
+
+	return 0;
+}
+
+
+void CKeeperDlg::OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2)
+{
+	if (nHotKeyId == MY_HOTKEY)
+	{
+		OnSettings();// 调出设置对话框
+	}
+
+	CDialog::OnHotKey(nHotKeyId, nKey1, nKey2);
 }

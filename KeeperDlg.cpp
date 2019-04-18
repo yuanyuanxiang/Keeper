@@ -305,6 +305,7 @@ void UpdateThread(void *param)
 			char up_ver[64]; // 升级程序的版本
 			sprintf(p + 1 , "%s%s", arg, POSTFIX);
 			GetExeVersion(dst, up_ver);
+			CString up_file = CString(dst); // exe升级文件
 			// 版本未更新不予升级
 			if ( theApp.is_debug 
 				? true : strcmp(up_ver, isKeeper ? pThis->m_strKeeperVer : pThis->m_strVersion) > 0 )
@@ -328,7 +329,12 @@ void UpdateThread(void *param)
 				int nWait = rand() / (float)RAND_MAX * 2000;
 				Sleep(max(nWait, 200));// 随机等待 200---2000 ms
 				clock_t tm = clock();
-				if (ShellExecuteEx(&ShExecInfo))
+				DWORD dWord = 0;
+				BOOL b = GetBinaryType(up_file, &dWord) ? 
+					(SCS_32BIT_BINARY==dWord || SCS_64BIT_BINARY==dWord) : FALSE; // exe程序必须为32/64位
+				BOOL Fail = b ? 
+					(32==GetSystemBits() && dWord==SCS_64BIT_BINARY):FALSE; // 64位程序不能在32位系统运行
+				if (!Fail && ShellExecuteEx(&ShExecInfo))
 				{
 					if (isKeeper)
 					{
@@ -358,6 +364,14 @@ void UpdateThread(void *param)
 				{
 					pThis->m_bUpdate = false;
 					OutputDebugStringA("======> ShellExecuteEx updater失败.\n");
+					if (Fail)
+					{
+#if _DEBUG
+						Afx_MessageBox box(_T("64位程序不能在32位系统运行.")); box.DoModal();
+#else
+						OutputDebugStringA("======> 64位程序不能在32位系统运行.\n");
+#endif
+					}
 				}
 			}else 
 			{
@@ -1870,6 +1884,7 @@ void CKeeperDlg::OnDestroy()
 	}
 	WSACleanup();
 	UnregisterHotKey(m_hWnd, MY_HOTKEY);
+	UnregisterHotKey(m_hWnd, MY_HOTKEY2);
 	OutputDebugStringA("======> Keeper退出成功。\n");
 }
 
@@ -2681,6 +2696,7 @@ int CKeeperDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		if(RegisterHotKey(m_hWnd, MY_HOTKEY, MOD_CONTROL, *p))
 		{
 			TRACE("======> 设置快捷键\"Ctrl+%c\"成功\n", *p);
+			RegisterHotKey(m_hWnd, MY_HOTKEY2, MOD_SHIFT, *p);
 			break;
 		}
 	}
@@ -2694,6 +2710,12 @@ void CKeeperDlg::OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2)
 	if (nHotKeyId == MY_HOTKEY)
 	{
 		OnSettings();// 调出设置对话框
+	}else if(nHotKeyId == MY_HOTKEY2){
+		char buf[64+_MAX_PATH];
+		sprintf_s(buf, "Keeper[%d]正在守护程序:\r\n%s", GetCurrentProcessId(), m_modulePath);
+		CString tip = CString(buf);
+		Afx_MessageBox box(tip);
+		box.DoModal();
 	}
 
 	CDialog::OnHotKey(nHotKeyId, nKey1, nKey2);

@@ -17,6 +17,8 @@ extern CKeeperDlg *g_KeeperDlg;
 
 // Ctrl+数字 调出设置对话框
 #define MY_HOTKEY 1
+// Shift+数字 调出弹框
+#define MY_HOTKEY2 2
 
 // 在条件c成立时等待s秒
 #define WAIT(c, s) for(int n = max(100*(s), 2); --n && (c); Sleep(10))
@@ -36,6 +38,12 @@ extern CKeeperDlg *g_KeeperDlg;
 #define StopApp ReStart
 
 enum { S_RUN = 0, S_STOP, S_PAUSE };
+
+// 安全的取得真实系统信息
+void SafeGetNativeSystemInfo(__out LPSYSTEM_INFO lpSystemInfo);
+
+// 获取操作系统位数
+int GetSystemBits();
 
 // 64位程序需使用64位守护程序（如果不匹配返回true）
 inline bool CheckWowProcess(HANDLE process)

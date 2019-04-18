@@ -184,6 +184,7 @@ BOOL CKeeperApp::Prepare(string &temp)
 
 BOOL CKeeperApp::InitInstance()
 {
+	float time_span = 6000.F;
 	USES_CONVERSION;
 	const char *id = W2A(m_lpCmdLine);
 	m_nParentId = atoi(id);
@@ -209,7 +210,7 @@ BOOL CKeeperApp::InitInstance()
 	int isRun = GetPrivateProfileIntA("settings", "is_run", 0, m_strConf.c_str());
 	if (1 == isRun && m_bUnique)// 上一次守护程序可能非正常关闭
 	{
-		Afx_MessageBox box(_T("检测到此应用程序的上一次退出是不正常的。是否检查此原因?"), 6000);
+		Afx_MessageBox box(_T("检测到此应用程序的上一次退出是不正常的。是否检查此原因?"), time_span);
 		box.DoModal();
 	}else
 		WritePrivateProfileStringA("settings", "is_run", is_run, m_strConf.c_str());

@@ -37,6 +37,18 @@ CBcecrSocket::~CBcecrSocket()
 	unInit();
 }
 
+// 从域名获取IP地址
+inline std::string GetIPAddress(const char *hostName)
+{
+	struct hostent *host = gethostbyname(hostName);
+#ifdef _DEBUG
+	printf("此域名的IP类型为: %s.\n", host->h_addrtype == AF_INET ? "IPV4" : "IPV6");
+	for (int i = 0; host->h_addr_list[i]; ++i)
+		printf("获取的第%d个IP: %s\n", i+1, inet_ntoa(*(struct in_addr*)host->h_addr_list[i]));
+#endif
+	return host ? inet_ntoa(*(struct in_addr*)host->h_addr_list[0]) : "";
+}
+
 /** 
 * @brief 初始化一个 socket
 * @param[in] *pIp	服务端IP
@@ -74,11 +86,12 @@ int CBcecrSocket::init(const char *pIp, int nPort, int nType)
 				::setsockopt(m_Socket, SOL_SOCKET, SO_CONDITIONAL_ACCEPT, (const char *)&bConditionalAccept, sizeof(bool));
 
 				m_chToport = nPort;
-				memcpy(m_chToIp, pIp, strlen(pIp));
+				std::string server = ('0' <= pIp[0] && pIp[0] <= '9') ? pIp : GetIPAddress(pIp);
+				memcpy(m_chToIp, server.c_str(), server.length());
 
 				m_in.sin_family = AF_INET;
 				m_in.sin_port = htons(nPort);
-				m_in.sin_addr.s_addr = inet_addr(pIp);
+				m_in.sin_addr.s_addr = inet_addr(m_chToIp);
 			}
 			if (_NO__ERROR == nRet)
 				m_bInit = true;

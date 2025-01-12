@@ -37,7 +37,8 @@
 #pragma comment(lib, "wininet.lib")
 #pragma comment(lib, "Urlmon.lib")
 
-#include <timeapi.h>
+// #include <timeapi.h>
+#include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
 
 #define __return(p) { SendMessage(WM_CLOSE); return p; }
@@ -733,6 +734,7 @@ int getOsVersion()
 {
 	OSVERSIONINFO info = {};
 	info.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+#pragma warning(disable: 4996) // 禁用 C4996 警告
 	GetVersionEx(&info);
 	DWORD dwMajor = info.dwMajorVersion;
 	DWORD dwMinor = info.dwMinorVersion;
@@ -2033,7 +2035,9 @@ DWORD WINAPI CKeeperDlg::keepProc(LPVOID pParam)
 		pThis->SendMessage(WM_CLOSE, 0, 0);
 		return 0xdead001;
 	}
-
+	char arg[500] = {};
+	// 对于需要启动参数的程序，此参数需要配置
+	GetPrivateProfileStringA("module", "arg", "", arg, sizeof(arg), theApp.m_strConf.c_str());
 	// 如果程序频繁崩溃，超过一定次数将不进行守护
 	int count = 0;
 	const int K_max = 10;
@@ -2057,7 +2061,13 @@ DWORD WINAPI CKeeperDlg::keepProc(LPVOID pParam)
 			if ((0 == pThis->m_handle || false==theApp.m_bUnique) && 0==theApp.m_nParentId )
 			{
 				CString lpParameters;
+				// 对于需要启动参数的程序，此参数可能产生影响
+				// 如果设置为default, 则在命令行中指定守护进程ID
 				lpParameters.Format(_T("-k %d"), int(GetCurrentProcessId()));
+				if (strcmp(arg, "default")!=0)
+				{
+					lpParameters = CString(arg);
+				} 
 				SHELLEXECUTEINFO ShExecInfo = { 0 };
 				ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
 				ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
